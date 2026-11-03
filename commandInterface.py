@@ -1,15 +1,21 @@
 import sys
 import pathlib
+import json
 
 import FileTreeEngine
 
 
 #명령어 인터페이스 호출
 def callCommandInterface():
+    FTconfigPath = pathlib.Path('./FTinit/FileTreeConfig.json')
     while True:
-        commandPath = pathlib.Path('./')
+        
+        with FTconfigPath.open('r', encoding='utf-8') as file:
+            FTconfig = json.load(file)
+            currentNode = FTconfig['currentNode']
+            
         try:
-            inputCommand = input(f'[{commandPath.resolve()}]>>> ').split() #명령어 입력 및 분해
+            inputCommand = input(f'[{currentNode}]>>> ').split() #명령어 입력 및 분해
             if (inputCommand[0] == 'exit'): #>>> exit
                 sys.exit()
             
