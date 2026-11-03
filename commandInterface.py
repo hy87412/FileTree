@@ -13,8 +13,12 @@ def callCommandInterface():
             
             elif (inputCommand[0] == 'help'):
                 if (inputCommand[1]):
-                    print(FileTreeEngine.help(inputCommand))
+                    FileTreeEngine.help(inputCommand)
                     
+            # elif (inputCommand[0] == 'commit'):
+            #     if (inputCommand[1]):
+            #         FileTreeEngine.commit(inputCommand)
+                
             
             else:
                 print('else')
