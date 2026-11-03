@@ -4,6 +4,8 @@ import pathlib
 import sys
 import shutil
 
+
+#FTinit dir없을시 초기화 함수
 def initFileTreeSys():
     dirPath = pathlib.Path('./FTinit')
     dirPath.mkdir()
@@ -18,6 +20,7 @@ def initFileTreeSys():
         json.dump({}, file)
 
 
+#init과정 수행 함수
 def FileTreeInitProcess():
     dirPath = pathlib.Path('./FTinit')
     if (dirPath.is_dir()):
