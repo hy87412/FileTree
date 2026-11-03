@@ -1,6 +1,9 @@
 import pathlib
 import json
 
+import TreeManager
+import FileIO
+
 FileTreePath = pathlib.Path('./')
 
 def help(command):
