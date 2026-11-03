@@ -3,6 +3,7 @@ import json
 
 import TreeManager
 import FileIO
+import Utility
 
 FileTreePath = pathlib.Path('./')
 
