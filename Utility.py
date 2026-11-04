@@ -31,6 +31,7 @@ def getFilesHashList(stringDirPath):
             hashList.append(getHash(str(filePath)))
     return hashList
 
+
 def isParentDirFileChanged():
     tree = getJson('./FTinit/Tree.json')
     FTconfig = getJson('./FTinit/FileTreeConfig.json')
