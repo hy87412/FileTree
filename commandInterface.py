@@ -23,9 +23,9 @@ def callCommandInterface():
                 if (inputCommand[1]):
                     FileTreeEngine.help(inputCommand)
                     
-            # elif (inputCommand[0] == 'commit'): #>>> commit
-            #     if (inputCommand[1]):
-            #         FileTreeEngine.commit(inputCommand)
+            elif (inputCommand[0] == 'commit'): #>>> commit
+                if (inputCommand[1]):
+                    FileTreeEngine.commit(inputCommand)
                 
             
             else: #명령어 없을시

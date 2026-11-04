@@ -1,9 +1,10 @@
-import commandInterface
-import json
 import pathlib
 import sys
 import shutil
+import datetime
 
+import commandInterface
+import Utility
 
 #FTinit dir없을시 초기화 함수
 def initFileTreeSys():
@@ -16,9 +17,9 @@ def initFileTreeSys():
         pathlib.Path('./FTetc/FileTreeConfigOrigin.json'),
         (dirPath / 'FileTreeConfig.json'))
 
-    with (dirPath / 'Tree.json').open('w', encoding='utf-8') as file:
-        json.dump({}, file)
-
+    treeJson = Utility.getJson('./FTetc/TreeOrigin.json')
+    treeJson['root']['commitDate'] = f'{datetime.datetime.now()}'
+    Utility.dumpJson(treeJson, './FTinit/Tree.json')
 
 #init과정 수행 함수
 def FileTreeInitProcess():
