@@ -30,3 +30,15 @@ def getFilesHashList(stringDirPath):
         if filePath.is_file():
             hashList.append(getHash(str(filePath)))
     return hashList
+
+def isParentDirFileChanged():
+    tree = getJson('./FTinit/Tree.json')
+    FTconfig = getJson('./FTinit/FileTreeConfig.json')
+
+    nowHashSet = set(getFilesHashList('../'))
+    currentNodeHashSet = set(tree[FTconfig['currentNode']]['fileHashes'])
+    
+    if ((nowHashSet - currentNodeHashSet) != set()):
+        return True
+    else:
+        return False
