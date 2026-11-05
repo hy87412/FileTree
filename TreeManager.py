@@ -6,7 +6,8 @@ import Utility
 #node추가 코드
 def addNode(commitMessage=''):
     FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
-
+    treeFile = Utility.getJson('./FTinit/Tree.json')
+    
     #새 노드 요소구성
     nodeName = f'N{FTconfig['totalNodeCount']}'
     parentNode = FTconfig['currentNode']
@@ -21,7 +22,9 @@ def addNode(commitMessage=''):
         "commitDate": commitDate
     }
 
+    #자식노드 추가
+    treeFile[parentNode]['childNodes'].append(nodeName)
+    
     #Tree 업데이트
-    beforeTree = Utility.getJson('./FTinit/Tree.json')
-    beforeTree[nodeName] = newNode
-    Utility.dumpJson(beforeTree, './FTinit/Tree.json')
+    treeFile[nodeName] = newNode
+    Utility.dumpJson(treeFile, './FTinit/Tree.json')
