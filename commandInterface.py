@@ -19,13 +19,17 @@ def callCommandInterface():
             if (inputCommand[0] == 'exit'): #>>> exit
                 sys.exit()
             
-            elif (inputCommand[0] == 'help'): #>>> help
+            elif (inputCommand[0] == 'help'): #>>> help command
                 if (inputCommand[1]):
                     FileTreeEngine.help(inputCommand)
                     
-            elif (inputCommand[0] == 'commit'): #>>> commit
+            elif (inputCommand[0] == 'commit'): #>>> commit message
                 if (inputCommand[1]):
                     FileTreeEngine.commit(inputCommand)
+                    
+            elif (inputCommand[0] == 'goto'): # >>> goto nodeName
+                if (inputCommand[1]):
+                    FileTreeEngine.goto(inputCommand)
                 
             
             else: #명령어 없을시

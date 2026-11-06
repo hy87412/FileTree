@@ -1,5 +1,4 @@
 import pathlib
-import json
 
 import TreeManager
 import FileIO
@@ -39,3 +38,16 @@ def commit(command):
             FileIO.addInnerDirFilesToFileDB()
         FTconfig['currentNode'] = f'N{FTconfig['totalNodeCount']}'
         Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
+        
+        
+def goto(command):
+    FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
+    tree = Utility.getJson('./FTinit/Tree.json')
+
+    if (command[1] in tree.keys()):
+        FTconfig['currentNode'] = command[1]
+        FileIO.syncToChangedNode(command[1])
+        
+        Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
+    else:
+        print('node가 존재하지 않습니다.')

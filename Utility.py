@@ -39,7 +39,9 @@ def isParentDirFileChanged():
     nowHashSet = set(getFilesHashList('../'))
     currentNodeHashSet = set(tree[FTconfig['currentNode']]['fileHashes'])
     
-    if ((nowHashSet - currentNodeHashSet) != set()):
+    if ((nowHashSet - currentNodeHashSet) != set() and (currentNodeHashSet - nowHashSet)):
         return True
     else:
         return False
+    
+    
