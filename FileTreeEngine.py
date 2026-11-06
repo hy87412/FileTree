@@ -25,7 +25,7 @@ def commit(command):
         if not(Utility.isParentDirFileChanged()):
             print('변경사항이 존재하지 않습니다.')
             isChanged = False
-            respond = input('계속 commit하시겠습니까? (y / n) >>>')
+            respond = input('계속 commit하시겠습니까? (y / n) >>> ')
             if (respond != 'y'):
                 respond = False
 
@@ -40,6 +40,7 @@ def commit(command):
         Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
         
         
+#goto명령 처리 함수
 def goto(command):
     FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
     tree = Utility.getJson('./FTinit/Tree.json')
