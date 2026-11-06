@@ -52,3 +52,24 @@ def goto(command):
         Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
     else:
         print('node가 존재하지 않습니다.')
+        
+        
+#nodelist명령 처리 함수
+def nodeList():
+    FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
+    tree = dict(Utility.getJson('./FTinit/Tree.json'))
+    print('=' * 84)
+    print(f'{"노드이름":11} {"부모노드":11} {"자식노드":21} {"생성날짜"}')
+
+    for nodeName in tree.keys():
+        print(
+            f'{nodeName:15} '
+            f'{str(tree[nodeName]['parentNode']):15} '
+            f'{str(tree[nodeName]['childNodes']):25} '
+            f'{str(tree[nodeName]['commitDate'])}'
+        )
+    print('=' * 84)
+
+
+# def nodeinfo(command[1]):
+    

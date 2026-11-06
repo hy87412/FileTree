@@ -30,7 +30,9 @@ def callCommandInterface():
             elif (inputCommand[0] == 'goto'): # >>> goto nodeName
                 if (inputCommand[1]):
                     FileTreeEngine.goto(inputCommand)
-                
+                    
+            elif (inputCommand[0] == 'nodelist'):
+                FileTreeEngine.nodeList()
             
             else: #명령어 없을시
                 print('else') #debug
