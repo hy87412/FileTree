@@ -56,11 +56,9 @@ def goto(command):
         
 #nodelist명령 처리 함수
 def nodeList():
-    FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
     tree = dict(Utility.getJson('./FTinit/Tree.json'))
     print('=' * 84)
     print(f'{"노드이름":11} {"부모노드":11} {"자식노드":21} {"생성날짜"}')
-
     for nodeName in tree.keys():
         print(
             f'{nodeName:15} '
@@ -71,5 +69,12 @@ def nodeList():
     print('=' * 84)
 
 
-# def nodeinfo(command[1]):
-    
+def nodeinfo(nodeName):
+    tree = dict(Utility.getJson('./FTinit/Tree.json'))
+    if (nodeName in tree):
+        nodeData = tree[nodeName]
+        print(f'{'nodeName':15} : {nodeName}')
+        print(f'{'commitMessage':15} : {nodeData['commitMessage']}')
+        print(f'{'parentNode':15} : {nodeData['parentNode']}')
+        print(f'{'childNodes':15} : {nodeData['childNodes']}')
+        print(f'{'commitDate':15} : {nodeData['commitDate']}')
