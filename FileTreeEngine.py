@@ -44,12 +44,19 @@ def commit(command):
 def goto(command):
     FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
     tree = Utility.getJson('./FTinit/Tree.json')
-
+    
     if (command[1] in tree.keys()):
-        FTconfig['currentNode'] = command[1]
-        FileIO.syncToChangedNode(command[1])
+        respond = 'y'
+        if Utility.isParentDirFileChanged():
+            print('변경사항을 commit하지 않았습니다.')
+            respond = input('계속하시겠습니까? (y / n) >>> ')
         
-        Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
+        if (respond == 'y'):
+            FTconfig['currentNode'] = command[1]
+            FileIO.syncToChangedNode(command[1])
+        
+            Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
+            
     else:
         print('node가 존재하지 않습니다.')
         
@@ -69,8 +76,10 @@ def nodeList():
     print('=' * 84)
 
 
+#nodeinfo명령 처리 함수
 def nodeinfo(nodeName):
     tree = dict(Utility.getJson('./FTinit/Tree.json'))
+    
     if (nodeName in tree):
         nodeData = tree[nodeName]
         print(f'{'nodeName':15} : {nodeName}')
@@ -78,3 +87,17 @@ def nodeinfo(nodeName):
         print(f'{'parentNode':15} : {nodeData['parentNode']}')
         print(f'{'childNodes':15} : {nodeData['childNodes']}')
         print(f'{'commitDate':15} : {nodeData['commitDate']}')
+        
+
+#status명령 처리 함수
+def status():
+    FTconfig = dict(Utility.getJson('./FTinit/FileTreeConfig.json'))
+    tree = dict(Utility.getJson('./FTinit/Tree.json'))
+    currentNode = FTconfig['currentNode']
+    
+    nodeData = tree[currentNode]
+    print(f'{'currentNode':15} : {currentNode}')
+    print(f'{'commitMessage':15} : {nodeData['commitMessage']}')
+    print(f'{'parentNode':15} : {nodeData['parentNode']}')
+    print(f'{'childNodes':15} : {nodeData['childNodes']}')
+    print(f'{'commitDate':15} : {nodeData['commitDate']}')

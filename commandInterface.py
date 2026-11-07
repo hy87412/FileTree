@@ -37,6 +37,9 @@ def callCommandInterface():
             elif (inputCommand[0] == 'nodeinfo'):
                 if (inputCommand[1]):
                     FileTreeEngine.nodeinfo(inputCommand[1])
+                    
+            elif (inputCommand[0] == 'status'):
+                FileTreeEngine.status()
             
             else: #명령어 없을시
                 print('else') #debug
