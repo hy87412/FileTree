@@ -13,9 +13,12 @@ def callCommandInterface():
         with FTconfigPath.open('r', encoding='utf-8') as file:
             FTconfig = json.load(file)
             currentNode = FTconfig['currentNode']
+            pinIcon = ''
+            if (FTconfig['isCurrentNodePined'] == 'True'):
+                pinIcon = '*'
             
         try:
-            inputCommand = input(f'[{currentNode}]>>> ').split() #명령어 입력 및 분해
+            inputCommand = input(f'[{pinIcon + currentNode}]>>> ').split() #명령어 입력 및 분해
             if (inputCommand[0] == 'exit'): #>>> exit
                 sys.exit()
             

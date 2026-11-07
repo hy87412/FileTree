@@ -33,10 +33,12 @@ def commit(command):
         #FileTreeConfig 업데이트
         FTconfig['totalNodeCount'] += 1
         Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
+        
         TreeManager.addNode(command[1])
         if isChanged:
             FileIO.addInnerDirFilesToFileDB()
         FTconfig['currentNode'] = f'N{FTconfig['totalNodeCount']}'
+        FTconfig['isCurrentNodePined'] = 'False'
         Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
         
         
@@ -53,6 +55,7 @@ def goto(command):
         
         if (respond == 'y'):
             FTconfig['currentNode'] = command[1]
+            FTconfig['isCurrentNodePined'] = tree[command[1]]['isPined']
             FileIO.syncToChangedNode(command[1])
         
             Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
@@ -106,11 +109,19 @@ def status():
 #setpin명령 처리 함수
 def setPin():
     FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
+    
+    FTconfig['isCurrentNodePined'] = 'True'
     TreeManager.setPin(FTconfig['currentNode'])
+    
+    Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
 
 
 #delpin명령 처리함수
 def delPin():
     FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
+    
+    FTconfig['isCurrentNodePined'] = 'False'
     TreeManager.delPin(FTconfig['currentNode'])
+    
+    Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
     
