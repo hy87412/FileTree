@@ -19,7 +19,8 @@ def addNode(commitMessage=''):
         "fileHashes": fileHashes,
         "parentNode": parentNode,
         "childNodes": [],
-        "commitDate": commitDate
+        "commitDate": commitDate,
+        "isPined": "False"
     }
 
     #자식노드 추가
