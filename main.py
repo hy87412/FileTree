@@ -28,7 +28,7 @@ def FileTreeInitProcess():
         print('exist')
     else:
         print('FTinit디렉터리가 존재하지 않습니다.')
-        respond = input('FileTree를 초기화 하겠습니까? (y / n) >>>')
+        respond = input('FileTree를 초기화 하겠습니까? (y / n) >>> ')
         if (respond == 'y'):
             initFileTreeSys()
         else:

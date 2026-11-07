@@ -101,3 +101,16 @@ def status():
     print(f'{'parentNode':15} : {nodeData['parentNode']}')
     print(f'{'childNodes':15} : {nodeData['childNodes']}')
     print(f'{'commitDate':15} : {nodeData['commitDate']}')
+    
+    
+#setpin명령 처리 함수
+def setPin():
+    FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
+    TreeManager.setPin(FTconfig['currentNode'])
+
+
+#delpin명령 처리함수
+def delPin():
+    FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
+    TreeManager.delPin(FTconfig['currentNode'])
+    

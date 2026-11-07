@@ -40,6 +40,12 @@ def callCommandInterface():
                     
             elif (inputCommand[0] == 'status'):
                 FileTreeEngine.status()
+                
+            elif (inputCommand[0] == 'setpin'):
+                FileTreeEngine.setPin()
+
+            elif (inputCommand[0] == 'delpin'):
+                FileTreeEngine.delPin()
             
             else: #명령어 없을시
                 print('else') #debug

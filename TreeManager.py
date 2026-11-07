@@ -29,3 +29,19 @@ def addNode(commitMessage=''):
     #Tree 업데이트
     treeFile[nodeName] = newNode
     Utility.dumpJson(treeFile, './FTinit/Tree.json')
+
+
+def setPin(targetNode):
+    tree = Utility.getJson('./FTinit/Tree.json')
+
+    tree[targetNode]['isPined'] = 'True'
+    
+    Utility.dumpJson(tree, './FTinit/Tree.json')
+
+
+def delPin(targetNode):
+    tree = Utility.getJson('./FTinit/Tree.json')
+    
+    tree[targetNode]['isPined'] = 'False'
+    
+    Utility.dumpJson(tree, './FTinit/Tree.json')
