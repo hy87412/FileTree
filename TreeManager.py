@@ -45,3 +45,33 @@ def delPin(targetNode):
     tree[targetNode]['isPined'] = 'False'
     
     Utility.dumpJson(tree, './FTinit/Tree.json')
+    
+    
+def recreatePinedTree(tree):
+    pinedNodes = {
+        name: node.copy()
+        for name, node in tree.items()
+        if node['isPined'] == 'True'
+    }
+
+    newTree = {}
+
+    for nodeName, node in pinedNodes.items():
+        node['childNodes'] = []
+        newTree[nodeName] = node
+
+    for nodeName in pinedNodes:
+        parentNode = tree[nodeName]['parentNode']
+
+        # 가장 가까운 고정된 조상 탐색
+        while parentNode and parentNode not in pinedNodes:
+            parentNode = tree[parentNode]['parentNode']
+
+        node = newTree[nodeName]
+        node['parentNode'] = parentNode
+
+        # 부모의 자식 목록에 현재 노드 추가
+        if parentNode:
+            newTree[parentNode]['childNodes'].append(nodeName)
+
+    return newTree

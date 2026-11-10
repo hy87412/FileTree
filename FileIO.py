@@ -47,3 +47,20 @@ def syncToChangedNode(nodeName):
         )
         
         
+def deleteHashDirExceptPined():
+    tree = dict(Utility.getJson('./FTinit/Tree.json'))
+    hashes = set()
+    pinedHashes = set()
+    notPinedHashes = set()
+
+    nodeList = tree.keys()
+    for node in nodeList:
+        hashes | set(tree[node]['fileHashes'])
+        if tree[node]['isPined'] == 'True':
+            pinedHashes | set(tree[node]['fileHashes'])
+            
+    notPinedHashes = hashes - pinedHashes
+    
+    for hash in notPinedHashes:
+        hashFilePath = pathlib.Path('./ftinit/FileDB/' + hash)
+        hashFilePath.unlink()

@@ -7,6 +7,16 @@ import Utility
 FileTreePath = pathlib.Path('./')
 
 
+def updateConfig():
+    FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
+    tree = Utility.getJson('./FTinit/Tree.json')
+
+    #pin정보 업데이트
+    FTconfig['isCurrentNodePined'] = tree[FTconfig['currentNode']]['isPined']
+
+    Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
+
+
 #help명령 처리 함수
 def help(command):
     if (command[1] == 'commit'):
@@ -67,16 +77,17 @@ def goto(command):
 #nodelist명령 처리 함수
 def nodeList():
     tree = dict(Utility.getJson('./FTinit/Tree.json'))
-    print('=' * 84)
-    print(f'{"노드이름":11} {"부모노드":11} {"자식노드":21} {"생성날짜"}')
+    print('=' * 99)
+    print(f'{"노드이름":11} {"pin":14} {"부모노드":11} {"자식노드":21} {"생성날짜"}')
     for nodeName in tree.keys():
         print(
             f'{nodeName:15} '
+            f'{str(tree[nodeName]['isPined']):15}'
             f'{str(tree[nodeName]['parentNode']):15} '
             f'{str(tree[nodeName]['childNodes']):25} '
             f'{str(tree[nodeName]['commitDate'])}'
         )
-    print('=' * 84)
+    print('=' * 99)
 
 
 #nodeinfo명령 처리 함수
@@ -90,6 +101,7 @@ def nodeinfo(nodeName):
         print(f'{'parentNode':15} : {nodeData['parentNode']}')
         print(f'{'childNodes':15} : {nodeData['childNodes']}')
         print(f'{'commitDate':15} : {nodeData['commitDate']}')
+        print(f'{'isPined':15} : {nodeData['isPined']}')
         
 
 #status명령 처리 함수
@@ -120,8 +132,23 @@ def setPin():
 def delPin():
     FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
     
-    FTconfig['isCurrentNodePined'] = 'False'
-    TreeManager.delPin(FTconfig['currentNode'])
+    if (FTconfig['currentNode'] != 'root'):
+        FTconfig['isCurrentNodePined'] = 'False'
+        TreeManager.delPin(FTconfig['currentNode'])
+        
+        Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
+    else:
+        print('root노드의 핀은 제거할수 없습니다.')
+
+
+#opti명령 처리함수
+def opti():
+    tree = Utility.getJson('./FTinit/Tree.json')
+    FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
+
+    tree = TreeManager.recreatePinedTree(tree)
+    FileIO.deleteHashDirExceptPined()
+    FTconfig['currentNode'] = 'root'
     
+    Utility.dumpJson(tree, './FTinit/Tree.json')
     Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
-    

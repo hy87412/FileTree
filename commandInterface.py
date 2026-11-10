@@ -50,9 +50,13 @@ def callCommandInterface():
             elif (inputCommand[0] == 'delpin'):
                 FileTreeEngine.delPin()
             
+            elif (inputCommand[0] == 'opti'):
+                FileTreeEngine.opti()
+            
             else: #명령어 없을시
                 print('else') #debug
                 print('올바른 명령어를 입력하세요.')
+                
                 
         except: #명령어 오류 예외처리
             print('except') #debug
