@@ -7,6 +7,7 @@ import FileTreeEngine
 
 #명령어 인터페이스 호출
 def callCommandInterface():
+    FileTreeEngine.updateConfig()
     FTconfigPath = pathlib.Path('./FTinit/FileTreeConfig.json')
     while True:
         

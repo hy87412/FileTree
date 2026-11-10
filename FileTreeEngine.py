@@ -146,9 +146,13 @@ def opti():
     tree = Utility.getJson('./FTinit/Tree.json')
     FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
 
-    tree = TreeManager.recreatePinedTree(tree)
-    FileIO.deleteHashDirExceptPined()
-    FTconfig['currentNode'] = 'root'
-    
-    Utility.dumpJson(tree, './FTinit/Tree.json')
-    Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
+    if FTconfig['isCurrentNodePined'] == 'True':
+        respond = input('핀하지 않은 노드는 삭제됩니다.\n계속하시겠습니까? (y / n) >>> ')
+        if respond == 'y':
+            tree = TreeManager.recreatePinedTree(tree)
+            FileIO.deleteHashDirExceptPined()
+        
+            Utility.dumpJson(tree, './FTinit/Tree.json')
+            Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
+    else:
+        print('opti는 핀이 되어있는 노드에서만 사용할수 있습니다.')

@@ -55,12 +55,15 @@ def deleteHashDirExceptPined():
 
     nodeList = tree.keys()
     for node in nodeList:
-        hashes | set(tree[node]['fileHashes'])
+        hashes |= set(tree[node]['fileHashes'])
         if tree[node]['isPined'] == 'True':
-            pinedHashes | set(tree[node]['fileHashes'])
+            pinedHashes |= set(tree[node]['fileHashes'])
             
     notPinedHashes = hashes - pinedHashes
-    
+    print(hashes)
+    print(pinedHashes)
+    print(notPinedHashes)
     for hash in notPinedHashes:
-        hashFilePath = pathlib.Path('./ftinit/FileDB/' + hash)
-        hashFilePath.unlink()
+        hashFileDir = pathlib.Path('./ftinit/FileDB/' + hash)
+        print(hashFileDir)
+        shutil.rmtree(hashFileDir)
