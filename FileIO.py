@@ -52,7 +52,7 @@ def deleteHashDirExceptPined():
     hashes = set()
     pinedHashes = set()
     notPinedHashes = set()
-
+    
     nodeList = tree.keys()
     for node in nodeList:
         hashes |= set(tree[node]['fileHashes'])
@@ -60,10 +60,7 @@ def deleteHashDirExceptPined():
             pinedHashes |= set(tree[node]['fileHashes'])
             
     notPinedHashes = hashes - pinedHashes
-    print(hashes)
-    print(pinedHashes)
-    print(notPinedHashes)
     for hash in notPinedHashes:
-        hashFileDir = pathlib.Path('./ftinit/FileDB/' + hash)
+        hashFileDir = pathlib.Path('./FTinit/FileDB/' + hash)
         print(hashFileDir)
-        shutil.rmtree(hashFileDir)
+        shutil.rmtree(hashFileDir) #permission denied error 발생가능
