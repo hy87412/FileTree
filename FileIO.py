@@ -1,5 +1,7 @@
 import pathlib
 import shutil
+import os
+import stat
 
 import Utility
 
@@ -45,22 +47,33 @@ def syncToChangedNode(nodeName):
             targetFilePath,
             destinationPath
         )
-        
-        
+
+
+def handleRemoveReadonly(func, path, excInfo):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+
+
 def deleteHashDirExceptPined():
     tree = dict(Utility.getJson('./FTinit/Tree.json'))
+    
     hashes = set()
     pinedHashes = set()
-    notPinedHashes = set()
-    
-    nodeList = tree.keys()
-    for node in nodeList:
+
+    for node in tree:
         hashes |= set(tree[node]['fileHashes'])
         if tree[node]['isPined'] == 'True':
             pinedHashes |= set(tree[node]['fileHashes'])
-            
+
     notPinedHashes = hashes - pinedHashes
+
     for hash in notPinedHashes:
-        hashFileDir = pathlib.Path('./FTinit/FileDB/' + hash)
-        print(hashFileDir)
-        shutil.rmtree(hashFileDir) #permission denied error 발생가능
+        hashFileDir = pathlib.Path('./FTinit/FileDB') / hash
+
+        if hashFileDir.exists():
+            try:
+                shutil.rmtree(hashFileDir, onerror=handleRemoveReadonly)
+
+            except PermissionError as e:
+                print(f'삭제 실패: {hashFileDir}')
+                print(e)
