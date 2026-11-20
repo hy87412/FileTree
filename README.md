@@ -27,7 +27,7 @@
 
 ### 실행이 안될때
 
-- matplotlib이 없어서 그럴수도 있습니다.
+- FileTree는 matplotlib라이브러리를 필요로 합니다. matplotlib이 존재하지 않는경우 오류가 발생할수 있습니다.
 
     > pip install matplotlib
 
