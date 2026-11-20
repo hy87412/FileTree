@@ -62,6 +62,6 @@ def callCommandInterface():
                 print('올바른 명령어를 입력하세요.')
                 
                 
-        except: #명령어 오류 예외처리
-            print('except') #debug
+        except Exception as e: #명령어 오류 예외처리
+            print(e) #debug
             print('올바른 명령어를 입력하세요.')
