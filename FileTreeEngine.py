@@ -3,6 +3,7 @@ import pathlib
 import TreeManager
 import FileIO
 import Utility
+import TreeVisualizer
 
 FileTreePath = pathlib.Path('./')
 
@@ -156,3 +157,12 @@ def opti():
             Utility.dumpJson(FTconfig, './FTinit/FileTreeConfig.json')
     else:
         print('opti는 핀이 되어있는 노드에서만 사용할수 있습니다.')
+
+
+def treeVisualizing():
+    tree = Utility.getJson('./FTinit/Tree.json')
+    FTconfig = Utility.getJson('./FTinit/FileTreeConfig.json')
+
+    currentNode = FTconfig['currentNode']
+
+    TreeVisualizer.visualizeTree(tree, currentNode, filename='../treeimg.png')

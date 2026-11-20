@@ -53,6 +53,9 @@ def callCommandInterface():
             
             elif (inputCommand[0] == 'opti'):
                 FileTreeEngine.opti()
+                
+            elif (inputCommand[0] == 'tv'):
+                FileTreeEngine.treeVisualizing()
             
             else: #명령어 없을시
                 print('else') #debug
