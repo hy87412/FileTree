@@ -37,6 +37,13 @@ def isParentDirFileChanged():
     FTconfig = getJson('./FTinit/FileTreeConfig.json')
 
     nowHashSet = set(getFilesHashList('../'))
+    
+    parentPath = pathlib.Path('../')
+    treeimgpath = pathlib.Path('../treeimg.png')
+    if treeimgpath in parentPath.iterdir():
+        treeimgHash = getHash('../treeimg.png')
+        nowHashSet = nowHashSet - set((treeimgHash,))
+    
     currentNodeHashSet = set(tree[FTconfig['currentNode']]['fileHashes'])
     
     if ((nowHashSet - currentNodeHashSet) != set() and (currentNodeHashSet - nowHashSet)):
