@@ -23,7 +23,11 @@
 
 ## 사용법
 
-- FileTree디렉터리 내의 start.bat실행
+- FileTree디렉터리 내의 start.bat실행.
+
+- FTinit 디렉터리가 최초실행전 존재하는 경우 삭제.
+
+- FileTree를 초기화 시키고 싶으면 FTinit디렉터리 삭제.
 
 ### 실행이 안될때
 
